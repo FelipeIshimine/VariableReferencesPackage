@@ -17,37 +17,68 @@ namespace VariableReferences.Editor
 				SerializationUtility.ClearAllManagedReferencesWithMissingTypes(property.serializedObject.targetObject);
 			}
 			
-			var container = new VisualElement();
-			container.Add(CreatePropertyField(property));
-			
-			return container;
-		}
-
-		private VisualElement CreatePropertyField(SerializedProperty property)
-		{
-			VisualElement propertyContainer = new VisualElement()
+			var container = new VisualElement()
 			{
 				style = { flexDirection = FlexDirection.Row}
 			};
+			CreatePropertyField(container,property);
+			return container;
+		}
 
-			var propertyField = new PropertyField(property)
+		private void CreatePropertyField(VisualElement propertyContainer, SerializedProperty property)
+		{
+			PropertyField propertyField;
+
+			/*
+			Label label = new Label(property.displayName);
+			label.AddToClassList("unity-base-field__label"); 
+			label.AddToClassList("unity-base-text-field__label"); 
+			label.AddToClassList("unity-base-field__label"); 
+			label.AddToClassList("unity-float-field__label"); 
+			label.AddToClassList("unity-base-field__label--with-dragger"); 
+			label.AddToClassList("unity-property-field__label"); 
+			*/
+			
+			/*propertyContainer.Add(label);
+			propertyContainer.AddToClassList("unity-base-field");
+			propertyContainer.AddToClassList("unity-base-text-field");
+			propertyContainer.AddToClassList("unity-float-field");
+			propertyContainer.AddToClassList("unity-base-field__aligned");
+			propertyContainer.AddToClassList("unity-base-field__inspector-field");
+			*/
+
+			var prop = property.Copy();
+			
+			if (prop.NextVisible(true))
 			{
-				style = { flexGrow = 1}
-			};
+				propertyField = new PropertyField(prop, property.displayName)
+				{
+					style = { flexGrow = 1}
+				};
+			}
+			else
+			{
+				propertyField = new PropertyField(property, property.displayName)
+				{
+					style = { flexGrow = 1}
+				};
+			}
+
+			propertyField.name = "Field";
+			
 			EditorToolbarDropdown typeBtn = null;
 			typeBtn = new EditorToolbarDropdown(GetButtonLabel(property),() => TypeDropdownClicked(typeBtn, property))
 			{
 				style =
 				{
 					height = 14,
-					position = Position.Absolute,
+					//position = Position.Absolute,
 					left = new StyleLength(StyleKeyword.Auto),
 					right = 0
 				}
 			};
 			propertyContainer.Add(propertyField);
 			propertyContainer.Add(typeBtn);
-			return propertyContainer;
 		}
 
 
@@ -123,6 +154,8 @@ namespace VariableReferences.Editor
 			prop.managedReferenceValue = Activator.CreateInstance(typesArray[index]);
 			prop.serializedObject.ApplyModifiedProperties();
 			typeBtn.text = GetButtonLabel(prop);
+			
+			typeBtn.parent.Q<PropertyField>().Bind(prop.serializedObject);
 		}
 	}
 }
