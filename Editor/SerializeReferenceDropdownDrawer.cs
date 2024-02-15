@@ -68,7 +68,7 @@ namespace VariableReferences.Editor
 		private string GetButtonLabel(SerializedProperty p)
 		{
 			return p.managedReferenceValue != null
-				? p.managedReferenceValue.GetType().Name.Replace(fieldInfo.FieldType.Name, string.Empty)
+				? p.managedReferenceValue.GetType().Name.Replace(p.managedReferenceValue.GetType().BaseType.Name, string.Empty)
 				: "-Select Type-";
 		}
 
