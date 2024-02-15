@@ -13,12 +13,11 @@ namespace VariableReferences
 	/// <typeparam name="TC"></typeparam>
 	public abstract class ProceduralVariable<T,TB, TC>  where TB : VariableReference<T> where TC: ProceduralDecorator<T>
 	{
-		[field:SerializeReference] protected TB BaseValue { get; set; }
+		[SerializeReference] protected TB baseValue = null;
 		[SerializeReference] private List<TC> decorators = new List<TC>();
-
 		public T Get()
 		{
-			T value = BaseValue.Value;
+			T value = baseValue.Value;
 			foreach (var decorator in decorators)
 			{
 				value = decorator.Process(value);
@@ -26,6 +25,6 @@ namespace VariableReferences
 			return value;
 		}
 
-		public void Set(T value) => BaseValue.Value = value;
+		public void Set(T value) => baseValue.Value = value;
 	}
 }

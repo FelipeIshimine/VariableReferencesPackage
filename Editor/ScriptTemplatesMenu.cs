@@ -14,6 +14,7 @@ namespace VariableReferences.Editor
 			"AssetVariableReferenceTemplate.txt",
 			"ComponentVariableReferenceTemplate.txt",
 			"ConstantVariableReferenceTemplate.txt",
+			"ProceduralVariableReferenceTemplate.txt",
 			"ProceduralVariableTemplate.txt",
 			"VariableAssetTemplate.txt",
 			"VariableComponentTemplate.txt",
