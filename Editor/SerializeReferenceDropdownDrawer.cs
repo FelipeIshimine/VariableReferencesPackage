@@ -28,26 +28,10 @@ namespace VariableReferences.Editor
 		
 		private void CreatePropertyField(VisualElement propertyContainer, SerializedProperty property)
 		{
-			PropertyField propertyField;
-			
-			var prop = property.Copy();
-			bool isProcedural = property.managedReferenceValue != null &&
-				property.managedReferenceValue.GetType().Name.Contains("Procedural");
-			
-			if (property.managedReferenceValue != null && prop.NextVisible(true))
+			var propertyField = new PropertyField(property, property.displayName)
 			{
-				propertyField = new PropertyField(prop, property.displayName)
-				{
-					style = { flexGrow = 1 }
-				};
-			}
-			else
-			{
-				propertyField = new PropertyField(property, property.displayName)
-				{
-					style = { flexGrow = 1 }
-				};
-			}
+				style = { flexGrow = 1 }
+			};
 			propertyField.name = "Field";
 			
 			EditorToolbarDropdown typeBtn = null;
@@ -56,7 +40,7 @@ namespace VariableReferences.Editor
 				style =
 				{
 					height = 14,
-					position = isProcedural?Position.Absolute:Position.Relative,
+					position = Position.Absolute,
 					left = new StyleLength(StyleKeyword.Auto),
 					right = 0
 				}
@@ -68,9 +52,11 @@ namespace VariableReferences.Editor
 		private string GetButtonLabel(SerializedProperty p)
 		{
 			return p.managedReferenceValue != null
-				? p.managedReferenceValue.GetType().Name.Replace(p.managedReferenceValue.GetType().BaseType.Name, string.Empty)
+				? GetDisplayName(p.managedReferenceValue.GetType()).Replace(p.managedReferenceValue.GetType().BaseType.Name, string.Empty)
 				: "-Select Type-";
 		}
+
+		private string GetDisplayName(Type type) => type.FullName.Replace(type.Namespace,string.Empty).Replace(".",string.Empty);
 
 		private void TypeDropdownClicked(EditorToolbarDropdown typeBtn, SerializedProperty property)
 		{
@@ -84,9 +70,9 @@ namespace VariableReferences.Editor
 				targetType = fieldInfo.FieldType;
 			}
 
-			//Debug.LogWarning($"CLICK {typeof(prop.managedReferenceValue)}");
 
 			var types = new List<Type>();
+			
 			foreach (var type in TypeCache.GetTypesDerivedFrom(targetType))
 			{
 				if (!type.IsAbstract)
@@ -95,7 +81,7 @@ namespace VariableReferences.Editor
 				}
 			}
 
-			var baseTypeName = targetType.Name;
+			var baseTypeName = GetDisplayName(targetType);
 			var typesArray = types.ToArray();
 
 			string[] labels = new string [typesArray.Length];
@@ -116,7 +102,7 @@ namespace VariableReferences.Editor
 
 				if (string.IsNullOrEmpty(path))
 				{
-					labels[i] = type.Name.Replace(baseTypeName, string.Empty);
+					labels[i] = GetDisplayName(type).Replace(baseTypeName, string.Empty);
 				}
 				else
 				{
@@ -138,10 +124,8 @@ namespace VariableReferences.Editor
 			property.serializedObject.ApplyModifiedProperties();
 			typeBtn.text = GetButtonLabel(property);
 
-			bool isProcedural = property.managedReferenceValue != null &&
+			/*bool isProcedural = property.managedReferenceValue != null &&
 				property.managedReferenceValue.GetType().Name.Contains("Procedural");
-			
-			
 			var p = property.Copy();
 			if (p.NextVisible(true))
 			{
@@ -151,8 +135,10 @@ namespace VariableReferences.Editor
 			{
 				typeBtn.parent.Q<PropertyField>().bindingPath = property.propertyPath;
 			}
-			
 			typeBtn.style.position = (isProcedural)?Position.Absolute:Position.Relative;
+			*/
+			
+			
 			typeBtn.parent.Q<PropertyField>().Bind(property.serializedObject);
 
 		}
@@ -170,7 +156,6 @@ namespace VariableReferences.Editor
 			return false;
 		}
 	}
-	
 	
 }
 
