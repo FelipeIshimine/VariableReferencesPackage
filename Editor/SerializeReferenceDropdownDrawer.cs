@@ -51,12 +51,38 @@ namespace VariableReferences.Editor
 
 		private string GetButtonLabel(SerializedProperty p)
 		{
-			return p.managedReferenceValue != null
-				? GetDisplayName(p.managedReferenceValue.GetType()).Replace(p.managedReferenceValue.GetType().BaseType.Name, string.Empty)
-				: "-Select Type-";
+			var managedReferenceValue = p.managedReferenceValue;
+			if (managedReferenceValue != null)
+			{
+				var type = managedReferenceValue.GetType();
+				var value = GetDisplayName(type);
+				var baseType = type.BaseType;
+				if (baseType != null)
+				{
+					value=value.Replace(baseType.Name, string.Empty);
+				}
+				return value;
+			}
+			return "-Select Type-";
 		}
 
-		private string GetDisplayName(Type type) => type.FullName.Replace(type.Namespace,string.Empty).Replace(".",string.Empty);
+		private string GetDisplayName(Type type)
+		{
+			if (type == null)
+			{
+				return "NULL";
+			}
+
+			var typeFullName = type.FullName;
+			var typeNamespace = type.Namespace;
+
+			if (string.IsNullOrEmpty(typeFullName) || string.IsNullOrEmpty(typeNamespace))
+			{
+				return type.Name;
+			}
+			
+			return typeFullName.Replace(typeNamespace, string.Empty).Replace(".", string.Empty);
+		}
 
 		private void TypeDropdownClicked(EditorToolbarDropdown typeBtn, SerializedProperty property)
 		{
