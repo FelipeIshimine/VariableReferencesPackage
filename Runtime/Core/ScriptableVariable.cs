@@ -22,13 +22,11 @@ namespace VariableReferences
 		private void OnEnable()
 		{
 			liveValue = defaultValue;
-			Debug.Log($"{name}.OnEnable");
 		}
 
 		private void OnDisable()
 		{
 			liveValue = default;
-			Debug.Log($"{name}.OnDisable");
 		}
 	}
 }
