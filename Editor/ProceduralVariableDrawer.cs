@@ -1,10 +1,4 @@
-﻿using UnityEditor;
-using UnityEditor.UIElements;
-using UnityEngine.UIElements;
-
-namespace VariableReferences.Editor
-{
-	/*[CustomPropertyDrawer(typeof(ProceduralVariable<,,>), true)]
+﻿/*[CustomPropertyDrawer(typeof(ProceduralVariable<,,>), true)]
 	public class ProceduralVariableDrawer : PropertyDrawer 
 	{
 		public override VisualElement CreatePropertyGUI(SerializedProperty property)
@@ -20,4 +14,3 @@ namespace VariableReferences.Editor
 			return container;
 		}
 	}*/
-}

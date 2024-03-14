@@ -1,9 +1,7 @@
 ﻿using UnityEditor;
+using VariableReferences;
 
-namespace VariableReferences.Editor
+[CustomPropertyDrawer(typeof(ProceduralDecorator<>), true)]
+public class ProceduralDecoratorDrawer : SerializeReferenceDropdownDrawer 
 {
-	[CustomPropertyDrawer(typeof(ProceduralDecorator<>), true)]
-	public class ProceduralDecoratorDrawer : SerializeReferenceDropdownDrawer 
-	{
-	}
 }

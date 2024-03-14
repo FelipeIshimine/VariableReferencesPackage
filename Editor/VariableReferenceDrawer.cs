@@ -1,9 +1,7 @@
 using UnityEditor;
+using VariableReferences;
 
-namespace VariableReferences.Editor
+[CustomPropertyDrawer(typeof(VariableReference<>), true)]
+public class VariableReferenceDrawer : SerializeReferenceDropdownDrawer
 {
-	[CustomPropertyDrawer(typeof(VariableReference<>), true)]
-	public class VariableReferenceDrawer : SerializeReferenceDropdownDrawer
-	{
-	}
 }
