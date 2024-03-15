@@ -1,7 +1,9 @@
 using UnityEngine;
-using VariableReferences;
 
-[CreateAssetMenu(menuName = "ScriptableVariable/Bool")]
-public class BoolAsset : ScriptableVariable<bool> 
+namespace VariableReferences
 {
+	[CreateAssetMenu(menuName = "ScriptableVariable/Bool")]
+	public class BoolAsset : ScriptableVariable<bool> 
+	{
+	}
 }

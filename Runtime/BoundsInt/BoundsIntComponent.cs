@@ -1,7 +1,8 @@
 using UnityEngine;
-using VariableReferences;
 
-
-public class BoundsIntComponent : ComponentVariable<BoundsInt> 
+namespace VariableReferences
 {
+	public class BoundsIntComponent : ComponentVariable<BoundsInt> 
+	{
+	}
 }

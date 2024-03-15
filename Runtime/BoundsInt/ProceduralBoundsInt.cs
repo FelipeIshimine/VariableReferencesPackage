@@ -1,11 +1,13 @@
 using UnityEngine;
-using VariableReferences;
 
-[System.Serializable]
-public class ProceduralBoundsInt : ProceduralVariable<BoundsInt, BoundsIntReference, BoundsIntDecorator>
+namespace VariableReferences
 {
-    public ProceduralBoundsInt()
+	[System.Serializable]
+	public class ProceduralBoundsInt : ProceduralVariable<BoundsInt, BoundsIntReference, BoundsIntDecorator>
 	{
-		baseValue = new ConstantBoundsIntReference();
+		public ProceduralBoundsInt()
+		{
+			baseValue = new ConstantBoundsIntReference();
+		}
 	}
 }

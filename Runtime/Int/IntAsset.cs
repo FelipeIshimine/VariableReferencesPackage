@@ -1,7 +1,9 @@
 using UnityEngine;
-using VariableReferences;
 
-[CreateAssetMenu(menuName = "ScriptableVariable/Int")]
-public class IntAsset : ScriptableVariable<int> 
+namespace VariableReferences
 {
+	[CreateAssetMenu(menuName = "ScriptableVariable/Int")]
+	public class IntAsset : ScriptableVariable<int> 
+	{
+	}
 }

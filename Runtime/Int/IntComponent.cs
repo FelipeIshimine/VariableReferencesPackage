@@ -1,7 +1,6 @@
-using UnityEngine;
-using VariableReferences;
-
-
-public class IntComponent : ComponentVariable<int> 
+namespace VariableReferences
 {
+	public class IntComponent : ComponentVariable<int> 
+	{
+	}
 }

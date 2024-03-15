@@ -1,11 +1,14 @@
 using UnityEngine;
 
-[System.Serializable]
-public class ComponentStringReference : StringReference 
+namespace VariableReferences
 {
-	[SerializeField] private StringComponent target;
+	[System.Serializable]
+	public class ComponentStringReference : StringReference 
+	{
+		[SerializeField] private StringComponent target;
     
-    protected override string GetValue() => target.Value;
-    protected override void SetValue(string newValue) => target.Value = newValue;
+		protected override string GetValue() => target.Value;
+		protected override void SetValue(string newValue) => target.Value = newValue;
         
+	}
 }

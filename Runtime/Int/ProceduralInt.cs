@@ -1,11 +1,11 @@
-using UnityEngine;
-using VariableReferences;
-
-[System.Serializable]
-public class ProceduralInt : ProceduralVariable<int, IntReference, IntDecorator>
+namespace VariableReferences
 {
-    public ProceduralInt()
+	[System.Serializable]
+	public class ProceduralInt : ProceduralVariable<int, IntReference, IntDecorator>
 	{
-		baseValue = new ConstantIntReference();
+		public ProceduralInt()
+		{
+			baseValue = new ConstantIntReference();
+		}
 	}
 }

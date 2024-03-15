@@ -1,11 +1,13 @@
 using UnityEngine;
-using VariableReferences;
 
-[System.Serializable]
-public class ProceduralAnimationCurve : ProceduralVariable<AnimationCurve, AnimationCurveReference, AnimationCurveDecorator>
+namespace VariableReferences
 {
-    public ProceduralAnimationCurve()
+	[System.Serializable]
+	public class ProceduralAnimationCurve : ProceduralVariable<AnimationCurve, AnimationCurveReference, AnimationCurveDecorator>
 	{
-		baseValue = new ConstantAnimationCurveReference();
+		public ProceduralAnimationCurve()
+		{
+			baseValue = new ConstantAnimationCurveReference();
+		}
 	}
 }

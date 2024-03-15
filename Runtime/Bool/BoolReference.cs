@@ -1,7 +1,7 @@
-using UnityEngine;
-using VariableReferences;
-
-[System.Serializable]
-public abstract class BoolReference : VariableReference<bool> 
+namespace VariableReferences
 {
+	[System.Serializable]
+	public abstract class BoolReference : VariableReference<bool> 
+	{
+	}
 }

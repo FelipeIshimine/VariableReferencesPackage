@@ -1,11 +1,11 @@
-using UnityEngine;
-using VariableReferences;
-
-[System.Serializable]
-public class ProceduralFloat : ProceduralVariable<float, FloatReference, FloatDecorator>
+namespace VariableReferences
 {
-    public ProceduralFloat()
+	[System.Serializable]
+	public class ProceduralFloat : ProceduralVariable<float, FloatReference, FloatDecorator>
 	{
-		baseValue = new ConstantFloatReference();
+		public ProceduralFloat()
+		{
+			baseValue = new ConstantFloatReference();
+		}
 	}
 }

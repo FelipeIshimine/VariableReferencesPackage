@@ -1,11 +1,13 @@
 using UnityEngine;
-using VariableReferences;
 
-[System.Serializable]
-public class ProceduralVector2Int : ProceduralVariable<Vector2Int, Vector2IntReference, Vector2IntDecorator>
+namespace VariableReferences
 {
-    public ProceduralVector2Int()
+	[System.Serializable]
+	public class ProceduralVector2Int : ProceduralVariable<Vector2Int, Vector2IntReference, Vector2IntDecorator>
 	{
-		baseValue = new ConstantVector2IntReference();
+		public ProceduralVector2Int()
+		{
+			baseValue = new ConstantVector2IntReference();
+		}
 	}
 }

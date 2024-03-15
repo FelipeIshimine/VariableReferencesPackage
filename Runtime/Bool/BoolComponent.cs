@@ -1,7 +1,6 @@
-using UnityEngine;
-using VariableReferences;
-
-
-public class BoolComponent : ComponentVariable<bool> 
+namespace VariableReferences
 {
+	public class BoolComponent : ComponentVariable<bool> 
+	{
+	}
 }

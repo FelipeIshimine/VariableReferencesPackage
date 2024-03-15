@@ -1,7 +1,9 @@
 using UnityEngine;
-using VariableReferences;
 
-[System.Serializable]
-public abstract class BoundsDecorator : ProceduralDecorator<Bounds> 
+namespace VariableReferences
 {
+	[System.Serializable]
+	public abstract class BoundsDecorator : ProceduralDecorator<Bounds> 
+	{
+	}
 }

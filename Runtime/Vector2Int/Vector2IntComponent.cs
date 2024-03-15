@@ -1,7 +1,8 @@
 using UnityEngine;
-using VariableReferences;
 
-
-public class Vector2IntComponent : ComponentVariable<Vector2Int> 
+namespace VariableReferences
 {
+	public class Vector2IntComponent : ComponentVariable<Vector2Int> 
+	{
+	}
 }

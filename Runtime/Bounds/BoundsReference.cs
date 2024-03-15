@@ -1,7 +1,9 @@
 using UnityEngine;
-using VariableReferences;
 
-[System.Serializable]
-public abstract class BoundsReference : VariableReference<Bounds> 
+namespace VariableReferences
 {
+	[System.Serializable]
+	public abstract class BoundsReference : VariableReference<Bounds> 
+	{
+	}
 }

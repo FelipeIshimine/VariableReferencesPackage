@@ -1,7 +1,9 @@
 using UnityEngine;
-using VariableReferences;
 
-[CreateAssetMenu(menuName = "ScriptableVariable/AnimationCurve")]
-public class AnimationCurveAsset : ScriptableVariable<AnimationCurve> 
+namespace VariableReferences
 {
+	[CreateAssetMenu(menuName = "ScriptableVariable/AnimationCurve")]
+	public class AnimationCurveAsset : ScriptableVariable<AnimationCurve> 
+	{
+	}
 }

@@ -1,7 +1,7 @@
-using UnityEngine;
-using VariableReferences;
-
-[System.Serializable]
-public abstract class IntDecorator : ProceduralDecorator<int> 
+namespace VariableReferences
 {
+	[System.Serializable]
+	public abstract class IntDecorator : ProceduralDecorator<int> 
+	{
+	}
 }

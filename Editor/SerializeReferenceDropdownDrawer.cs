@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEditor.Toolbars;
 using UnityEditor.UIElements;
+using UnityEngine;
 using UnityEngine.UIElements;
 using VariableReferences.Attributes;
 
@@ -15,12 +16,19 @@ public class SerializeReferenceDropdownDrawer : PropertyDrawer
 			SerializationUtility.ClearAllManagedReferencesWithMissingTypes(property.serializedObject.targetObject);
 		}
 
-		var container = new VisualElement()
+		if (property.propertyType == SerializedPropertyType.ManagedReference)
 		{
-			style = { flexDirection = FlexDirection.Row }
-		};
-		CreatePropertyField(container, property);
-		return container;
+			var container = new VisualElement()
+			{
+				style = { flexDirection = FlexDirection.Row }
+			};
+			CreatePropertyField(container, property);
+			return container;
+		}
+		else
+		{
+			return new Label("Incompatible. Field must have the attribute SerializedReference");
+		}
 	}
 
 		
@@ -28,23 +36,29 @@ public class SerializeReferenceDropdownDrawer : PropertyDrawer
 	{
 		var propertyField = new PropertyField(property, property.displayName)
 		{
-			style = { flexGrow = 1 }
+			style = { flexGrow = 1}
 		};
-		propertyField.name = "Field";
-			
 		EditorToolbarDropdown typeBtn = null;
-		typeBtn = new EditorToolbarDropdown(GetButtonLabel(property), () => TypeDropdownClicked(typeBtn, property))
+
+		typeBtn = new EditorToolbarDropdown()
 		{
+			text = GetButtonLabel(property),
 			style =
 			{
-				height = 14,
+				height = 16,
 				position = Position.Absolute,
 				left = new StyleLength(StyleKeyword.Auto),
 				right = 0
 			}
 		};
+		typeBtn.clicked += () => TypeDropdownClicked(propertyField.worldBound, typeBtn, property);
+		
+		{
+			
+		};
 		propertyContainer.Add(propertyField);
 		propertyContainer.Add(typeBtn);
+
 	}
 
 	private string GetButtonLabel(SerializedProperty p)
@@ -82,7 +96,15 @@ public class SerializeReferenceDropdownDrawer : PropertyDrawer
 		return typeFullName.Replace(typeNamespace, string.Empty).Replace(".", string.Empty);
 	}
 
-	private void TypeDropdownClicked(EditorToolbarDropdown typeBtn, SerializedProperty property)
+	private void OnTypeSelected(int index, EditorToolbarDropdown typeBtn, SerializedProperty property, Type[] typesArray)
+	{
+		property.managedReferenceValue = Activator.CreateInstance(typesArray[index]);
+		property.serializedObject.ApplyModifiedProperties();
+		typeBtn.text = GetButtonLabel(property);
+		typeBtn.parent.Q<PropertyField>().Bind(property.serializedObject);
+	}
+	
+	void TypeDropdownClicked(Rect dropdownRect, EditorToolbarDropdown typeBtn, SerializedProperty property)
 	{
 		Type targetType;
 		if (fieldInfo.FieldType.IsConstructedGenericType)
@@ -93,10 +115,7 @@ public class SerializeReferenceDropdownDrawer : PropertyDrawer
 		{
 			targetType = fieldInfo.FieldType;
 		}
-
-
 		var types = new List<Type>();
-			
 		foreach (var type in TypeCache.GetTypesDerivedFrom(targetType))
 		{
 			if (!type.IsAbstract)
@@ -140,17 +159,9 @@ public class SerializeReferenceDropdownDrawer : PropertyDrawer
 				labels,
 				index => OnTypeSelected(index, typeBtn, property, typesArray));
 
-		dropdown.Show(typeBtn.worldBound);
+		dropdown.Show(dropdownRect);
 	}
-
-	void OnTypeSelected(int index, EditorToolbarDropdown typeBtn, SerializedProperty property, Type[] typesArray)
-	{
-		property.managedReferenceValue = Activator.CreateInstance(typesArray[index]);
-		property.serializedObject.ApplyModifiedProperties();
-		typeBtn.text = GetButtonLabel(property);
-		typeBtn.parent.Q<PropertyField>().Bind(property.serializedObject);
-	}
-		
+	
 	static bool IsSubclassOfRawGeneric(Type generic, Type toCheck) {
 		while (toCheck != null && toCheck != typeof(object)) 
 		{

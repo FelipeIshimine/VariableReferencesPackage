@@ -1,11 +1,13 @@
 using UnityEngine;
-using VariableReferences;
 
-[System.Serializable]
-public class ProceduralVector3 : ProceduralVariable<Vector3, Vector3Reference, Vector3Decorator>
+namespace VariableReferences
 {
-    public ProceduralVector3()
+	[System.Serializable]
+	public class ProceduralVector3 : ProceduralVariable<Vector3, Vector3Reference, Vector3Decorator>
 	{
-		baseValue = new ConstantVector3Reference();
+		public ProceduralVector3()
+		{
+			baseValue = new ConstantVector3Reference();
+		}
 	}
 }

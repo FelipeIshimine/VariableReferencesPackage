@@ -1,11 +1,11 @@
-using UnityEngine;
-using VariableReferences;
-
-[System.Serializable]
-public class ProceduralBool : ProceduralVariable<bool, BoolReference, BoolDecorator>
+namespace VariableReferences
 {
-    public ProceduralBool()
+	[System.Serializable]
+	public class ProceduralBool : ProceduralVariable<bool, BoolReference, BoolDecorator>
 	{
-		baseValue = new ConstantBoolReference();
+		public ProceduralBool()
+		{
+			baseValue = new ConstantBoolReference();
+		}
 	}
 }

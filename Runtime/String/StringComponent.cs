@@ -1,7 +1,6 @@
-using UnityEngine;
-using VariableReferences;
-
-
-public class StringComponent : ComponentVariable<string> 
+namespace VariableReferences
 {
+	public class StringComponent : ComponentVariable<string> 
+	{
+	}
 }
