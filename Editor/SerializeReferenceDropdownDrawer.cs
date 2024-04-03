@@ -48,7 +48,8 @@ public class SerializeReferenceDropdownDrawer : PropertyDrawer
 				height = 16,
 				position = Position.Absolute,
 				left = new StyleLength(StyleKeyword.Auto),
-				right = 0
+				right = 0,
+				flexGrow = 1
 			}
 		};
 		typeBtn.clicked += () => TypeDropdownClicked(propertyField.worldBound, typeBtn, property);
