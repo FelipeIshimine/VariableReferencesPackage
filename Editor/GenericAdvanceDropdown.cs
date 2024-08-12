@@ -41,13 +41,7 @@ internal class QuickAdvancedDropdown : AdvancedDropdown
 					previous.AddChild(item);
 				}
 				previous = item;
-				//item = root.AddChild(new AdvancedDropdownItem(s));
 			}
-
-			/*root.AddChild(new AdvancedDropdownItem(labels[i])
-			{
-				id = i
-			});*/
 		}
 		return root;
 	}
